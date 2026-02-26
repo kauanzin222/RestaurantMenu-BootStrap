@@ -1,83 +1,53 @@
-# Menu Project 🍽️
+# 🍽️ Projeto Menu - Remasterização com Bootstrap
 
-  - This project is very **special** for me because it is an *update* of the [Menu Project](https://github.com/kauanzin222/bootcamp-devjr-ProjetoMenu.git) that I had just done with:
-    
-      - HTML;
-      - CSS;
-      - JavaScript.
-        
-  - Now, in this project, I must remaster it with **BootStrap**, and this brought a new vision to me, I tried to make the site new with a much better interface, I applied components that I had learned and I was very concerned about responsiveness.
-    
-## Final Result:
+![Status](https://img.shields.io/badge/Status-Finalizado-green)
 
+Este repositório é muito especial para mim, pois representa a evolução técnica de um projeto anterior. O objetivo foi "remasterizar" um sistema de pedidos que inicialmente utilizava apenas HTML e CSS puro, trazendo-o para o ecossistema do **Bootstrap** para alcançar uma interface moderna, profissional e totalmente responsiva.
+
+## 🚀 Principais Aprendizados e Evolução
+
+A transição para o framework permitiu uma nova visão sobre o desenvolvimento front-end:
+
+- 🎨 **Upgrade de Interface**: Utilização de componentes nativos do Bootstrap para criar um layout visualmente mais atraente e limpo, sem a necessidade de centenas de linhas de CSS customizado.
+- 📱 **Foco em Responsividade**: Domínio do sistema de grid e utilitários para garantir que o menu funcione perfeitamente tanto em desktops quanto em dispositivos móveis.
+- 🧩 **Componente Modal**: Implementação do componente **Modal** para exibir o resumo do pedido, proporcionando uma experiência de usuário mais fluida e elegante.
+- 🛡️ **Lógica de Validação**: Desenvolvimento de verificações via JavaScript para garantir que o nome seja válido e que pelo menos um item tenha sido selecionado antes de processar o pedido.
+- 💰 **Formatação de Dados**: Uso de `Intl.NumberFormat` para garantir que todos os valores financeiros sejam exibidos corretamente no padrão brasileiro (BRL).
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Linguagem**: JavaScript (ES6+).
+- **Estruturação**: HTML5.
+- **Design/UI**: Bootstrap 5 (Framework principal).
+- **Lógica**: jQuery (para manipulação do DOM e eventos do Modal).
+
+## 🖥️ Resultado Final
+
+Confira abaixo as capturas de tela da nova interface e as validações do sistema:
+
+### Interface Geral
 ![menu1](https://github.com/kauanzin222/bootcamp-devjr-projectmenu-bootstrap/blob/main/images/exemplos/menu1.png)
 ![menu2](https://github.com/kauanzin222/bootcamp-devjr-projectmenu-bootstrap/blob/main/images/exemplos/menu2.png)
 
---- 
-
-### Modal
-  - By clicking "Calcular" I used the modal component to display a summary of the order. Warning if an **item has not been selected or the name is invalid**.
-    
+### Resumo no Modal e Validações
 ![modal](https://github.com/kauanzin222/bootcamp-devjr-projectmenu-bootstrap/blob/main/images/exemplos/modal.png)
-
----
-### Invalid name!
 ![nome](https://github.com/kauanzin222/bootcamp-devjr-projectmenu-bootstrap/blob/main/images/exemplos/nome.png)
 
----
-### No items selected
-![item](https://github.com/kauanzin222/bootcamp-devjr-projectmenu-bootstrap/blob/main/images/exemplos/item.png)
+## 🔍 Snippet: Lógica do Pedido
 
-### Function of Result:
+Abaixo, um exemplo da lógica utilizada para capturar os dados e renderizar o resumo dinamicamente no modal:
+
 ```js
-modalResumo.on('show.bs.modal',
-
-    function result() {
-        var output = $("#output");
-        
-        /* Verificando se nome está vazio */
-        var name = $("#name").val();
-        if (name == '') {
-            output.html(`<br><strong><h2 class="alert alert-warning">NOME INVÁLIDO!</h2><strong><br>`)
-            return;
-        }
-
-        var quantities = $("[name='quantity']");
-
-        var verificaQuantity = 0;
-        var total = 0;
-
-        var formatter = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        })
-
-        for (var input of quantities) {
-            var id = input.id;
-
-            if (input.value > 0)
-                verificaQuantity++;
-        }
-
-        if (verificaQuantity == 0) {
-            output.html(`<br><strong><h2 class="alert alert-warning">NENHUM ITEM SELECIONADO!</h2><strong><br>`)
-            return;
-        }
-
-        output.html(`<br>Caro(a) <strong>${name}</strong>, <br><br><br>
-                    Seguem os dados do seu pedido <br><br>
-                    O seu pedido é: <br><br>`);
-
-        for (var input of quantities) {
-            var id = input.id;
-
-            if (input.value > 0) {
-                output.append(`<li> Prato: ${prods[id - 1].name} - Preço unitário: ${formatter.format(prods[id - 1].price)} 
-                        - Quantidade: ${input.value} - Total: ${formatter.format(input.value * prods[id - 1].price)}. </li>`);
-                total += prods[id - 1].price * input.value;
-            }
-        }
-
-        output.append(`<br><br><strong>Preço final: ${formatter.format(total)}<strong> <br><br>`);
+modalResumo.on('show.bs.modal', function result() {
+    var output = $("#output");
+    var name = $("#name").val();
+    
+    // Validação de Nome
+    if (name == '') {
+        output.html(`<br><strong><h2 class="alert alert-warning">NOME INVÁLIDO!</h2><strong><br>`)
+        return;
     }
-````
+
+    // Lógica de cálculo e formatação BRL...
+    // (Código completo no arquivo script.js)
+});
